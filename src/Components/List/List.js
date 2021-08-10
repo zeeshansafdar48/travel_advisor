@@ -12,21 +12,11 @@ import PlaceCard from '../PlaceCard/PlaceCard';
 
 import useStyles from './styles';
 
-export default function List() {
+export default function List({ places }) {
   const classes = useStyles();
   const [type, setType] = useState('restaurants');
   const [rating, setRating] = useState('');
 
-  const places = [
-    { name: 'Cool Place' },
-    { name: 'Theme park' },
-    { name: 'Canal view' },
-    { name: 'Canal view' },
-    { name: 'Canal view' },
-    { name: 'Canal view' },
-    { name: 'Canal view' },
-    { name: 'Canal view' },
-  ];
   return (
     <div className={classes.container}>
       <Typography variant="h4">Restaurants, Hotels & Attractions around you</Typography>
@@ -48,7 +38,7 @@ export default function List() {
         </Select>
       </FormControl>
       <Grid container spacing={3} className={classes.list}>
-        {places.map((place, i) => (
+        {places?.map((place, i) => (
           <Grid item key={i} xs={12}>
             <PlaceCard place={place} />
           </Grid>
