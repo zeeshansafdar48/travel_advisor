@@ -12,19 +12,15 @@ import PlaceCard from '../PlaceCard/PlaceCard';
 
 import useStyles from './styles';
 
-export default function List({ places, childClicked, isLoading }) {
+export default function List({ places, childClicked, isLoading, type, setType, rating, setRating }) {
   const classes = useStyles();
-  const [type, setType] = useState('restaurants');
-  const [rating, setRating] = useState('');
   const [elRefs, setElRefs] = useState([]);
 
   useEffect(() => {
-    const refs = Array(places?.length)
-      .fill()
-      .map((_, i) => elRefs[i] || createRef());
-
-    setElRefs(refs);
+    setElRefs((refs) => Array(places?.length).fill().map((_, i) => refs[i] || createRef()));
   }, [places]);
+  console.log('elRefs', elRefs)
+  console.log('isLoading', isLoading)
   return (
     <div className={classes.container}>
       <Typography variant="h4">Restaurants, Hotels & Attractions around you</Typography>
@@ -53,8 +49,8 @@ export default function List({ places, childClicked, isLoading }) {
           </FormControl>
           <Grid container spacing={3} className={classes.list}>
             {places?.map((place, i) => (
-              <Grid item key={i} xs={12}>
-                <PlaceCard place={place} selected={childClicked === i} refProp={elRefs[i]} />
+              <Grid ref={elRefs[i]} item key={i} xs={12}>
+                <PlaceCard place={place} selected={Number(childClicked) === i} refProp={elRefs[i]} />
               </Grid>
             ))}
           </Grid>
